@@ -144,12 +144,13 @@ export default function SubmitIdeaButton({ categories }: SubmitIdeaButtonProps) 
       <button
         onClick={openModal}
         className={cn(
-          "inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold",
-          "transition-all hover:opacity-90 active:scale-[0.97] shadow-md hover:shadow-lg"
+          "inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold",
+          "transition-all active:scale-[0.97] hover:brightness-110"
         )}
         style={{
-          backgroundColor: "var(--primary)",
+          background: "linear-gradient(135deg, #4338ca, #6366f1)",
           color: "var(--primary-foreground)",
+          boxShadow: "0 4px 14px -3px rgba(67, 56, 202, 0.4)",
         }}
       >
         <Plus className="h-4 w-4" />
@@ -216,15 +217,15 @@ export default function SubmitIdeaButton({ categories }: SubmitIdeaButtonProps) 
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="A short, descriptive title"
                   className={cn(
-                    "w-full rounded-lg border px-3 py-2.5 text-sm outline-none",
-                    "transition-all focus:ring-2"
+                    "w-full rounded-xl border px-3 py-2.5 text-sm outline-none",
+                    "transition-all"
                   )}
                   style={{
                     borderColor: "var(--border)",
                     backgroundColor: "var(--muted)",
                     color: "var(--foreground)",
-                    ringColor: "var(--primary)",
-                  } as React.CSSProperties}
+                    boxShadow: "inset 0 1px 2px rgba(0,0,0,0.05)",
+                  }}
                 />
 
                 {/* Duplicate suggestions */}
@@ -283,15 +284,15 @@ export default function SubmitIdeaButton({ categories }: SubmitIdeaButtonProps) 
                   placeholder="Describe your idea in detail..."
                   rows={4}
                   className={cn(
-                    "w-full resize-none rounded-lg border px-3 py-2.5 text-sm outline-none",
-                    "transition-all focus:ring-2"
+                    "w-full resize-none rounded-xl border px-3 py-2.5 text-sm outline-none",
+                    "transition-all"
                   )}
                   style={{
                     borderColor: "var(--border)",
                     backgroundColor: "var(--muted)",
                     color: "var(--foreground)",
-                    ringColor: "var(--primary)",
-                  } as React.CSSProperties}
+                    boxShadow: "inset 0 1px 2px rgba(0,0,0,0.05)",
+                  }}
                 />
               </div>
 
@@ -309,15 +310,15 @@ export default function SubmitIdeaButton({ categories }: SubmitIdeaButtonProps) 
                   value={categoryId}
                   onChange={(e) => setCategoryId(e.target.value)}
                   className={cn(
-                    "w-full rounded-lg border px-3 py-2.5 text-sm outline-none",
-                    "transition-all focus:ring-2 appearance-none"
+                    "w-full rounded-xl border px-3 py-2.5 text-sm outline-none",
+                    "transition-all appearance-none"
                   )}
                   style={{
                     borderColor: "var(--border)",
                     backgroundColor: "var(--muted)",
                     color: categoryId ? "var(--foreground)" : "var(--muted-foreground)",
-                    ringColor: "var(--primary)",
-                  } as React.CSSProperties}
+                    boxShadow: "inset 0 1px 2px rgba(0,0,0,0.05)",
+                  }}
                 >
                   <option value="">Select a category</option>
                   {categories.map((cat) => (
@@ -341,7 +342,7 @@ export default function SubmitIdeaButton({ categories }: SubmitIdeaButtonProps) 
                   type="button"
                   onClick={closeModal}
                   className={cn(
-                    "rounded-lg border px-4 py-2 text-sm font-medium",
+                    "rounded-xl border px-4 py-2 text-sm font-medium",
                     "transition-all hover:opacity-80"
                   )}
                   style={{
@@ -355,13 +356,14 @@ export default function SubmitIdeaButton({ categories }: SubmitIdeaButtonProps) 
                   type="submit"
                   disabled={isSubmitting}
                   className={cn(
-                    "inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold shadow-md",
-                    "transition-all hover:opacity-90 active:scale-[0.97]",
+                    "inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold",
+                    "transition-all hover:brightness-110 active:scale-[0.97]",
                     "disabled:opacity-50 disabled:pointer-events-none"
                   )}
                   style={{
-                    backgroundColor: "var(--primary)",
+                    background: "linear-gradient(135deg, #4338ca, #6366f1)",
                     color: "var(--primary-foreground)",
+                    boxShadow: "0 4px 14px -3px rgba(67, 56, 202, 0.4)",
                   }}
                 >
                   {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" />}

@@ -62,14 +62,21 @@ export default function IdeaCard({ idea }: IdeaCardProps) {
     <div
       onClick={() => router.push(`/feedback/${idea.id}`)}
       className={cn(
-        "group flex cursor-pointer gap-4 rounded-xl border p-4 transition-all shadow",
-        "hover:shadow-lg hover:-translate-y-0.5"
+        "group flex cursor-pointer gap-4 rounded-xl border p-4 transition-all animate-fade-in-up card-glow",
+        "hover:-translate-y-0.5"
       )}
       style={{
         borderColor: "var(--border)",
         backgroundColor: "var(--card)",
-        borderLeftWidth: "3px",
-        borderLeftColor: `color-mix(in srgb, ${statusConfig.color} 50%, transparent)`,
+        borderTopWidth: "2px",
+        borderTopColor: "transparent",
+        transition: "all 0.3s ease, border-top-color 0.3s ease",
+      }}
+      onMouseEnter={(e) => {
+        (e.currentTarget as HTMLElement).style.borderTopColor = statusConfig.color;
+      }}
+      onMouseLeave={(e) => {
+        (e.currentTarget as HTMLElement).style.borderTopColor = "transparent";
       }}
     >
       {/* Vote Button */}
@@ -77,15 +84,16 @@ export default function IdeaCard({ idea }: IdeaCardProps) {
         onClick={handleVote}
         disabled={isVoting}
         className={cn(
-          "flex flex-col items-center justify-center gap-1 rounded-xl border-2 min-w-[60px] px-3 py-4",
+          "flex flex-col items-center justify-center gap-1 rounded-xl min-w-[60px] px-3 py-4",
           "transition-all hover:scale-105 active:scale-95 shrink-0",
-          hasVoted && "ring-2"
+          !hasVoted && "border-2"
         )}
         style={{
-          borderColor: hasVoted ? "var(--primary)" : "var(--border)",
-          backgroundColor: hasVoted ? "var(--accent)" : "var(--card)",
-          color: hasVoted ? "var(--primary)" : "var(--muted-foreground)",
-          ringColor: hasVoted ? "var(--primary)" : undefined,
+          borderColor: hasVoted ? "transparent" : "var(--border)",
+          background: hasVoted
+            ? "linear-gradient(135deg, var(--primary), #6366f1)"
+            : "var(--card)",
+          color: hasVoted ? "#ffffff" : "var(--muted-foreground)",
         } as React.CSSProperties}
       >
         <ChevronUp
@@ -98,7 +106,7 @@ export default function IdeaCard({ idea }: IdeaCardProps) {
       <div className="flex min-w-0 flex-1 flex-col gap-2">
         {/* Title */}
         <h3
-          className="text-[15px] font-semibold leading-tight group-hover:underline"
+          className="text-[15px] font-semibold leading-tight tracking-[-0.01em] group-hover:underline"
           style={{ color: "var(--foreground)" }}
         >
           {idea.title}

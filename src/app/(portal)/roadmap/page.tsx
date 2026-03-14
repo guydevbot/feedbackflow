@@ -38,7 +38,10 @@ export default async function RoadmapPage() {
           className="mb-2 text-3xl font-extrabold tracking-tight"
           style={{ color: "var(--foreground)" }}
         >
-          Product Roadmap
+          Product{" "}
+          <span style={{ fontFamily: "var(--font-display)", fontStyle: "italic", fontWeight: 400 }}>
+            Roadmap
+          </span>
         </h1>
         <p
           className="mb-8 text-sm font-medium"
@@ -48,7 +51,7 @@ export default async function RoadmapPage() {
         </p>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {COLUMNS.map((col) => {
+          {COLUMNS.map((col, colIndex) => {
             const config = STATUS_CONFIG[col.key];
             const items = [...(grouped[col.key] ?? [])].sort((a, b) => b.voteCount - a.voteCount);
             const isShipped = col.key === "shipped";
@@ -64,7 +67,7 @@ export default async function RoadmapPage() {
             return (
               <div
                 key={col.key}
-                className="flex flex-col rounded-xl border overflow-hidden shadow"
+                className={`flex flex-col rounded-xl border overflow-hidden shadow animate-fade-in-up delay-${colIndex + 1}`}
                 style={{
                   borderColor: "var(--border)",
                   backgroundColor: "var(--background)",
@@ -112,7 +115,7 @@ export default async function RoadmapPage() {
                       <Link
                         key={item.id}
                         href={`/feedback/${item.id}`}
-                        className="group rounded-lg border p-3 transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5"
+                        className="group rounded-lg border p-3 transition-all card-glow hover:-translate-y-0.5"
                         style={{
                           borderColor: "var(--border)",
                           backgroundColor: "var(--card)",

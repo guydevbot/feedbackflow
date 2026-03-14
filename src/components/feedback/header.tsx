@@ -9,27 +9,26 @@ export default async function Header() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full shadow-lg"
+        "sticky top-0 z-50 w-full border-b"
       )}
       style={{
-        backgroundColor: "var(--header-bg)",
+        background: "linear-gradient(135deg, #111827 0%, #1e1b4b 100%)",
         color: "var(--header-text)",
+        borderColor: "rgba(255,255,255,0.1)",
       }}
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5 group">
           <div
-            className="flex h-9 w-9 items-center justify-center rounded-lg transition-transform group-hover:scale-105 shadow-md"
+            className="flex h-9 w-9 items-center justify-center rounded-lg transition-transform group-hover:scale-105"
             style={{ backgroundColor: "var(--primary)" }}
           >
             <MessageSquareText className="h-5 w-5 text-white" />
           </div>
-          <span
-            className="text-xl font-bold tracking-tight"
-            style={{ color: "var(--header-text)" }}
-          >
-            FeedbackFlow
+          <span className="text-xl tracking-tight" style={{ color: "var(--header-text)" }}>
+            <span className="font-bold" style={{ fontFamily: "var(--font-body)" }}>Feedback</span>
+            <span style={{ fontFamily: "var(--font-display)", fontStyle: "italic" }}>Flow</span>
           </span>
         </Link>
 
@@ -38,14 +37,11 @@ export default async function Header() {
           <Link
             href="/"
             className={cn(
-              "rounded-md px-3 py-2 text-sm font-semibold transition-colors",
-              "hover:opacity-90"
+              "text-sm font-semibold transition-colors",
+              "bg-white/10 rounded-full px-4 py-1.5"
             )}
             style={{
               color: "#ffffff",
-              borderBottom: "2px solid var(--primary)",
-              borderRadius: "0",
-              paddingBottom: "4px",
             }}
           >
             Ideas
@@ -53,8 +49,8 @@ export default async function Header() {
           <Link
             href="/roadmap"
             className={cn(
-              "rounded-md px-3 py-2 text-sm font-medium transition-colors",
-              "hover:opacity-90"
+              "text-sm font-medium transition-colors rounded-full px-4 py-1.5",
+              "hover:bg-white/10"
             )}
             style={{ color: "rgba(255,255,255,0.65)" }}
           >
@@ -89,11 +85,11 @@ export default async function Header() {
             <Link
               href="/api/auth/signin"
               className={cn(
-                "inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium",
+                "inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium",
                 "transition-all hover:bg-white/10 active:scale-[0.98] border"
               )}
               style={{
-                borderColor: "rgba(255,255,255,0.3)",
+                borderColor: "rgba(255,255,255,0.2)",
                 color: "#ffffff",
                 backgroundColor: "transparent",
               }}

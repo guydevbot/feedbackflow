@@ -58,16 +58,23 @@ export default function SearchBar() {
         onChange={handleChange}
         placeholder="Search ideas..."
         className={cn(
-          "w-full rounded-lg border py-2.5 pl-10 pr-10 text-sm outline-none",
-          "transition-all placeholder:text-[var(--muted-foreground)]",
-          "focus:ring-2"
+          "w-full rounded-xl border py-2.5 pl-10 pr-10 text-sm outline-none",
+          "transition-all placeholder:text-[var(--muted-foreground)]"
         )}
         style={{
           borderColor: "var(--border)",
           backgroundColor: "var(--card)",
           color: "var(--foreground)",
-          ringColor: "var(--primary)",
-        } as React.CSSProperties}
+          boxShadow: "inset 0 1px 2px rgba(0,0,0,0.05)",
+        }}
+        onFocus={(e) => {
+          e.currentTarget.style.boxShadow = "0 0 0 3px rgba(67, 56, 202, 0.15), inset 0 1px 2px rgba(0,0,0,0.05)";
+          e.currentTarget.style.borderColor = "var(--primary)";
+        }}
+        onBlur={(e) => {
+          e.currentTarget.style.boxShadow = "inset 0 1px 2px rgba(0,0,0,0.05)";
+          e.currentTarget.style.borderColor = "var(--border)";
+        }}
       />
       {value && (
         <button

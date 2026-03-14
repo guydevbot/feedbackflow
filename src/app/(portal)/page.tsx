@@ -84,8 +84,8 @@ export default async function IdeasFeed({
                   {ideas.length}
                 </span>
               </div>
-              <p className="mt-1.5 text-sm font-medium" style={{ color: "var(--muted-foreground)" }}>
-                Submit and vote on feature requests
+              <p className="mt-1.5 text-sm" style={{ color: "var(--muted-foreground)", fontFamily: "var(--font-display)", fontStyle: "italic" }}>
+                Shape what we build next
               </p>
             </div>
             <SubmitIdeaButton categories={cats} />
