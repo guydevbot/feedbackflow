@@ -94,7 +94,7 @@ export default async function IdeasFeed({
 
         {/* Controls Panel */}
         <div
-          className="mb-6 rounded-xl border p-4 space-y-4 shadow"
+          className="mb-8 rounded-2xl border p-5 sm:p-6 space-y-5 shadow-sm"
           style={{ backgroundColor: "var(--card)", borderColor: "var(--border)" }}
         >
           <SearchBar />

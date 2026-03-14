@@ -4,6 +4,7 @@ import { eq } from "drizzle-orm";
 import Link from "next/link";
 import Header from "@/components/feedback/header";
 import { STATUS_CONFIG, type Status } from "@/lib/utils";
+import { ChevronUp, MessageCircle } from "lucide-react";
 
 const COLUMNS: { key: Status; heading: string }[] = [
   { key: "in_progress", heading: "Now" },
@@ -67,7 +68,7 @@ export default async function RoadmapPage() {
             return (
               <div
                 key={col.key}
-                className={`flex flex-col rounded-xl border overflow-hidden shadow animate-fade-in-up delay-${colIndex + 1}`}
+                className={`flex flex-col rounded-2xl border overflow-hidden shadow-sm animate-fade-in-up delay-${colIndex + 1}`}
                 style={{
                   borderColor: "var(--border)",
                   backgroundColor: "var(--background)",
@@ -78,20 +79,20 @@ export default async function RoadmapPage() {
               >
                 {/* Column header */}
                 <div
-                  className="flex items-center gap-2 px-4 py-3 border-b"
+                  className="flex items-center gap-3 px-5 py-4 border-b"
                   style={{ borderColor: "var(--border)" }}
                 >
                   <span
                     className={`h-2.5 w-2.5 rounded-full ${config.dotClass}`}
                   />
                   <span
-                    className="text-xs font-bold uppercase tracking-wider"
+                    className="text-sm font-bold uppercase tracking-wider"
                     style={{ color: "var(--foreground)" }}
                   >
                     {col.heading}
                   </span>
                   <span
-                    className="ml-auto rounded-full px-2 py-0.5 text-xs font-bold"
+                    className="ml-auto rounded-full px-2.5 py-1 text-xs font-bold"
                     style={{
                       backgroundColor: `color-mix(in srgb, ${statusColor} 15%, transparent)`,
                       color: statusColor,
@@ -102,7 +103,7 @@ export default async function RoadmapPage() {
                 </div>
 
                 {/* Cards */}
-                <div className="flex flex-col gap-2 p-3 min-h-[200px]">
+                <div className="flex flex-col gap-3 p-4 min-h-[200px]">
                   {items.length === 0 ? (
                     <p
                       className="px-4 py-6 text-center text-sm"
@@ -115,21 +116,21 @@ export default async function RoadmapPage() {
                       <Link
                         key={item.id}
                         href={`/feedback/${item.id}`}
-                        className="group rounded-lg border p-3 transition-all card-glow hover:-translate-y-0.5"
+                        className="group rounded-xl border p-4 transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
                         style={{
                           borderColor: "var(--border)",
                           backgroundColor: "var(--card)",
                         }}
                       >
                         <h3
-                          className="mb-2 text-sm font-medium leading-snug group-hover:underline"
+                          className="text-sm font-semibold leading-snug group-hover:underline"
                           style={{ color: "var(--foreground)" }}
                         >
                           {item.title}
                         </h3>
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2 mt-3">
                           <span
-                            className="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium"
+                            className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium"
                             style={{
                               backgroundColor: "var(--accent)",
                               color: "var(--primary)",
@@ -141,24 +142,24 @@ export default async function RoadmapPage() {
                             />
                             {item.category}
                           </span>
+                        </div>
+                        <div
+                          className="flex items-center justify-between mt-3 pt-3 border-t"
+                          style={{ borderColor: "var(--border)" }}
+                        >
                           <span
-                            className="flex items-center gap-1 text-xs font-medium"
+                            className="flex items-center gap-1.5 text-xs font-medium"
                             style={{ color: "var(--muted-foreground)" }}
                           >
-                            <svg
-                              className="h-3.5 w-3.5"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                              strokeWidth={2}
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M5 15l7-7 7 7"
-                              />
-                            </svg>
+                            <ChevronUp className="h-3.5 w-3.5" />
                             {item.voteCount}
+                          </span>
+                          <span
+                            className="flex items-center gap-1.5 text-xs font-medium"
+                            style={{ color: "var(--muted-foreground)" }}
+                          >
+                            <MessageCircle className="h-3.5 w-3.5" />
+                            0
                           </span>
                         </div>
                       </Link>

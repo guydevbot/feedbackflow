@@ -37,7 +37,6 @@ export default function IdeaCard({ idea }: IdeaCardProps) {
     const previousVotes = votes;
     const previousHasVoted = hasVoted;
 
-    // Optimistic update
     setVotes(hasVoted ? votes - 1 : votes + 1);
     setHasVoted(!hasVoted);
 
@@ -46,7 +45,6 @@ export default function IdeaCard({ idea }: IdeaCardProps) {
         method: "POST",
       });
       if (!res.ok) {
-        // Revert on failure
         setVotes(previousVotes);
         setHasVoted(previousHasVoted);
       }
@@ -62,21 +60,13 @@ export default function IdeaCard({ idea }: IdeaCardProps) {
     <div
       onClick={() => router.push(`/feedback/${idea.id}`)}
       className={cn(
-        "group flex cursor-pointer gap-4 rounded-xl border p-4 transition-all animate-fade-in-up card-glow",
-        "hover:-translate-y-0.5"
+        "group flex cursor-pointer gap-5 rounded-2xl border p-5 sm:p-6",
+        "transition-all duration-200 animate-fade-in-up",
+        "hover:-translate-y-0.5 hover:shadow-lg"
       )}
       style={{
         borderColor: "var(--border)",
         backgroundColor: "var(--card)",
-        borderTopWidth: "2px",
-        borderTopColor: "transparent",
-        transition: "all 0.3s ease, border-top-color 0.3s ease",
-      }}
-      onMouseEnter={(e) => {
-        (e.currentTarget as HTMLElement).style.borderTopColor = statusConfig.color;
-      }}
-      onMouseLeave={(e) => {
-        (e.currentTarget as HTMLElement).style.borderTopColor = "transparent";
       }}
     >
       {/* Vote Button */}
@@ -84,15 +74,14 @@ export default function IdeaCard({ idea }: IdeaCardProps) {
         onClick={handleVote}
         disabled={isVoting}
         className={cn(
-          "flex flex-col items-center justify-center gap-1 rounded-xl min-w-[60px] px-3 py-4",
-          "transition-all hover:scale-105 active:scale-95 shrink-0",
-          !hasVoted && "border-2"
+          "flex flex-col items-center justify-center gap-1.5 rounded-2xl min-w-[68px] px-4 py-5",
+          "transition-all duration-200 hover:scale-105 active:scale-95 shrink-0"
         )}
         style={{
-          borderColor: hasVoted ? "transparent" : "var(--border)",
+          border: hasVoted ? "none" : "2px solid var(--border)",
           background: hasVoted
             ? "linear-gradient(135deg, var(--primary), #6366f1)"
-            : "var(--card)",
+            : "var(--muted)",
           color: hasVoted ? "#ffffff" : "var(--muted-foreground)",
         } as React.CSSProperties}
       >
@@ -103,10 +92,10 @@ export default function IdeaCard({ idea }: IdeaCardProps) {
       </button>
 
       {/* Content */}
-      <div className="flex min-w-0 flex-1 flex-col gap-2">
+      <div className="flex min-w-0 flex-1 flex-col gap-3">
         {/* Title */}
         <h3
-          className="text-[15px] font-semibold leading-tight tracking-[-0.01em] group-hover:underline"
+          className="text-base font-semibold leading-snug tracking-[-0.01em] group-hover:underline"
           style={{ color: "var(--foreground)" }}
         >
           {idea.title}
@@ -123,10 +112,10 @@ export default function IdeaCard({ idea }: IdeaCardProps) {
         )}
 
         {/* Meta row */}
-        <div className="flex flex-wrap items-center gap-3 mt-1">
-          {/* Category badge with colored dot */}
+        <div className="flex flex-wrap items-center gap-2.5 pt-2 mt-auto border-t" style={{ borderColor: "var(--border)" }}>
+          {/* Category badge */}
           <span
-            className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium"
+            className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium"
             style={{
               backgroundColor: "var(--accent)",
               color: "var(--primary)",
@@ -139,33 +128,36 @@ export default function IdeaCard({ idea }: IdeaCardProps) {
             {idea.category}
           </span>
 
-          {/* Status pill badge */}
+          {/* Status pill */}
           <span
-            className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[11px] font-medium"
+            className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium"
             style={{
-              backgroundColor: `color-mix(in srgb, ${statusConfig.color} 15%, white)`,
+              backgroundColor: `color-mix(in srgb, ${statusConfig.color} 15%, var(--card))`,
               color: statusConfig.color,
             }}
           >
-            <span className={cn("h-1.5 w-1.5 rounded-full", statusConfig.dotClass)} />
+            <span className={cn("h-2 w-2 rounded-full", statusConfig.dotClass)} />
             {statusConfig.label}
           </span>
 
+          {/* Spacer */}
+          <span className="flex-1" />
+
           {/* Time */}
           <span
-            className="inline-flex items-center gap-1 text-xs"
+            className="inline-flex items-center gap-1.5 text-xs"
             style={{ color: "var(--muted-foreground)" }}
           >
-            <Clock className="h-3 w-3" />
+            <Clock className="h-3.5 w-3.5" />
             {timeAgo(new Date(idea.createdAt))}
           </span>
 
           {/* Comments */}
           <span
-            className="inline-flex items-center gap-1 text-xs"
+            className="inline-flex items-center gap-1.5 text-xs"
             style={{ color: "var(--muted-foreground)" }}
           >
-            <MessageCircle className="h-3 w-3" />
+            <MessageCircle className="h-3.5 w-3.5" />
             {idea.commentCount}
           </span>
         </div>

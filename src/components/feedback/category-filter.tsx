@@ -45,11 +45,11 @@ export default function CategoryFilter({
         >
           Category
         </h4>
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex flex-wrap gap-2">
           <button
             onClick={() => setParam("category", null)}
             className={cn(
-              "rounded-full border px-2.5 py-0.5 text-[11px] font-medium transition-all",
+              "rounded-full border px-3 py-1.5 text-xs font-medium transition-all",
               "hover:opacity-80 active:scale-[0.97]"
             )}
             style={{
@@ -67,7 +67,7 @@ export default function CategoryFilter({
                 key={cat.id}
                 onClick={() => setParam("category", isActive ? null : cat.slug)}
                 className={cn(
-                  "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[11px] font-medium transition-all",
+                  "inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-all",
                   "hover:opacity-80 active:scale-[0.97]"
                 )}
                 style={{
@@ -100,11 +100,11 @@ export default function CategoryFilter({
         >
           Status
         </h4>
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex flex-wrap gap-2">
           <button
             onClick={() => setParam("status", null)}
             className={cn(
-              "rounded-full border px-2.5 py-0.5 text-[11px] font-medium transition-all",
+              "rounded-full border px-3 py-1.5 text-xs font-medium transition-all",
               "hover:opacity-80 active:scale-[0.97]"
             )}
             style={{
@@ -123,7 +123,7 @@ export default function CategoryFilter({
                   key={key}
                   onClick={() => setParam("status", isActive ? null : key)}
                   className={cn(
-                    "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[11px] font-medium",
+                    "inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium",
                     "transition-all hover:opacity-80 active:scale-[0.97]"
                   )}
                   style={{
