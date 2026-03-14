@@ -94,8 +94,15 @@ export default async function IdeasFeed({
 
         {/* Controls Panel */}
         <div
-          className="mb-8 rounded-2xl border p-5 sm:p-6 space-y-5 shadow-sm"
-          style={{ backgroundColor: "var(--card)", borderColor: "var(--border)" }}
+          className="space-y-5"
+          style={{
+            marginBottom: "32px",
+            borderRadius: "16px",
+            border: "1px solid var(--border)",
+            padding: "24px",
+            backgroundColor: "var(--card)",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)",
+          }}
         >
           <SearchBar />
           <div className="flex flex-col sm:flex-row sm:items-start gap-4">
@@ -107,7 +114,7 @@ export default async function IdeasFeed({
         </div>
 
         {/* Ideas List */}
-        <div className="space-y-3">
+        <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
           {ideas.length === 0 ? (
             <div
               className="text-center py-16 rounded-xl border-2 border-dashed"

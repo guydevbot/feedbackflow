@@ -17,11 +17,7 @@ interface Idea {
   authorName: string | null;
 }
 
-interface IdeaCardProps {
-  idea: Idea;
-}
-
-export default function IdeaCard({ idea }: IdeaCardProps) {
+export default function IdeaCard({ idea }: { idea: Idea }) {
   const router = useRouter();
   const [votes, setVotes] = useState(idea.voteCount);
   const [hasVoted, setHasVoted] = useState(false);
@@ -32,132 +28,154 @@ export default function IdeaCard({ idea }: IdeaCardProps) {
   async function handleVote(e: React.MouseEvent) {
     e.stopPropagation();
     if (isVoting) return;
-
     setIsVoting(true);
-    const previousVotes = votes;
-    const previousHasVoted = hasVoted;
-
+    const prev = { votes, hasVoted };
     setVotes(hasVoted ? votes - 1 : votes + 1);
     setHasVoted(!hasVoted);
-
     try {
-      const res = await fetch(`/api/feedback/${idea.id}/vote`, {
-        method: "POST",
-      });
-      if (!res.ok) {
-        setVotes(previousVotes);
-        setHasVoted(previousHasVoted);
-      }
-    } catch {
-      setVotes(previousVotes);
-      setHasVoted(previousHasVoted);
-    } finally {
-      setIsVoting(false);
-    }
+      const res = await fetch(`/api/feedback/${idea.id}/vote`, { method: "POST" });
+      if (!res.ok) { setVotes(prev.votes); setHasVoted(prev.hasVoted); }
+    } catch { setVotes(prev.votes); setHasVoted(prev.hasVoted); }
+    finally { setIsVoting(false); }
   }
 
   return (
     <div
       onClick={() => router.push(`/feedback/${idea.id}`)}
-      className={cn(
-        "group flex cursor-pointer gap-5 rounded-2xl border p-5 sm:p-6",
-        "transition-all duration-200 animate-fade-in-up",
-        "hover:-translate-y-0.5 hover:shadow-lg"
-      )}
       style={{
-        borderColor: "var(--border)",
+        display: "flex",
+        gap: "20px",
+        padding: "24px",
+        borderRadius: "16px",
+        border: "1px solid var(--border)",
         backgroundColor: "var(--card)",
+        boxShadow: "0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)",
+        cursor: "pointer",
+        transition: "all 0.2s ease",
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.boxShadow = "0 8px 25px rgba(0,0,0,0.08), 0 4px 10px rgba(0,0,0,0.05)";
+        e.currentTarget.style.transform = "translateY(-2px)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.boxShadow = "0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)";
+        e.currentTarget.style.transform = "translateY(0)";
       }}
     >
       {/* Vote Button */}
       <button
         onClick={handleVote}
         disabled={isVoting}
-        className={cn(
-          "flex flex-col items-center justify-center gap-1.5 rounded-2xl min-w-[68px] px-4 py-5",
-          "transition-all duration-200 hover:scale-105 active:scale-95 shrink-0"
-        )}
         style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "6px",
+          minWidth: "68px",
+          padding: "16px 12px",
+          borderRadius: "14px",
           border: hasVoted ? "none" : "2px solid var(--border)",
           background: hasVoted
-            ? "linear-gradient(135deg, var(--primary), #6366f1)"
+            ? "linear-gradient(135deg, #4338ca, #6366f1)"
             : "var(--muted)",
           color: hasVoted ? "#ffffff" : "var(--muted-foreground)",
-        } as React.CSSProperties}
+          cursor: "pointer",
+          transition: "all 0.2s ease",
+          flexShrink: 0,
+        }}
       >
         <ChevronUp
-          className={cn("h-5 w-5 transition-transform", hasVoted && "-translate-y-0.5")}
+          style={{ width: 20, height: 20, transition: "transform 0.2s" }}
         />
-        <span className="text-sm font-bold leading-none tabular-nums">{votes}</span>
+        <span style={{ fontSize: "14px", fontWeight: 700, fontVariantNumeric: "tabular-nums" }}>
+          {votes}
+        </span>
       </button>
 
       {/* Content */}
-      <div className="flex min-w-0 flex-1 flex-col gap-3">
+      <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: "10px" }}>
         {/* Title */}
-        <h3
-          className="text-base font-semibold leading-snug tracking-[-0.01em] group-hover:underline"
-          style={{ color: "var(--foreground)" }}
-        >
+        <h3 style={{
+          fontSize: "16px",
+          fontWeight: 600,
+          lineHeight: 1.4,
+          color: "var(--foreground)",
+          letterSpacing: "-0.01em",
+        }}>
           {idea.title}
         </h3>
 
         {/* Description */}
         {idea.description && (
-          <p
-            className="text-sm leading-relaxed line-clamp-2"
-            style={{ color: "var(--muted-foreground)" }}
-          >
+          <p className="line-clamp-2" style={{
+            fontSize: "14px",
+            lineHeight: 1.6,
+            color: "var(--muted-foreground)",
+          }}>
             {idea.description}
           </p>
         )}
 
         {/* Meta row */}
-        <div className="flex flex-wrap items-center gap-2.5 pt-2 mt-auto border-t" style={{ borderColor: "var(--border)" }}>
+        <div style={{
+          display: "flex",
+          flexWrap: "wrap",
+          alignItems: "center",
+          gap: "10px",
+          paddingTop: "12px",
+          marginTop: "auto",
+          borderTop: "1px solid var(--border)",
+        }}>
           {/* Category badge */}
-          <span
-            className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium"
-            style={{
-              backgroundColor: "var(--accent)",
-              color: "var(--primary)",
-            }}
-          >
-            <span
-              className="h-2 w-2 rounded-full shrink-0"
-              style={{ backgroundColor: "var(--primary)" }}
-            />
+          <span style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "6px",
+            padding: "5px 12px",
+            borderRadius: "999px",
+            fontSize: "12px",
+            fontWeight: 500,
+            backgroundColor: "var(--accent)",
+            color: "var(--primary)",
+          }}>
+            <span style={{
+              width: 8, height: 8, borderRadius: "50%",
+              backgroundColor: "var(--primary)",
+              flexShrink: 0,
+            }} />
             {idea.category}
           </span>
 
           {/* Status pill */}
-          <span
-            className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium"
-            style={{
-              backgroundColor: `color-mix(in srgb, ${statusConfig.color} 15%, var(--card))`,
-              color: statusConfig.color,
-            }}
-          >
-            <span className={cn("h-2 w-2 rounded-full", statusConfig.dotClass)} />
+          <span style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "6px",
+            padding: "5px 12px",
+            borderRadius: "999px",
+            fontSize: "12px",
+            fontWeight: 500,
+            backgroundColor: `color-mix(in srgb, ${statusConfig.color} 15%, var(--card))`,
+            color: statusConfig.color,
+          }}>
+            <span className={cn("rounded-full", statusConfig.dotClass)}
+              style={{ width: 8, height: 8, flexShrink: 0 }} />
             {statusConfig.label}
           </span>
 
           {/* Spacer */}
-          <span className="flex-1" />
+          <span style={{ flex: 1 }} />
 
           {/* Time */}
-          <span
-            className="inline-flex items-center gap-1.5 text-xs"
-            style={{ color: "var(--muted-foreground)" }}
-          >
-            <Clock className="h-3.5 w-3.5" />
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "5px", fontSize: "12px", color: "var(--muted-foreground)" }}>
+            <Clock style={{ width: 14, height: 14 }} />
             {timeAgo(new Date(idea.createdAt))}
           </span>
 
           {/* Comments */}
-          <span
-            className="inline-flex items-center gap-1.5 text-xs"
-            style={{ color: "var(--muted-foreground)" }}
-          >
-            <MessageCircle className="h-3.5 w-3.5" />
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "5px", fontSize: "12px", color: "var(--muted-foreground)" }}>
+            <MessageCircle style={{ width: 14, height: 14 }} />
             {idea.commentCount}
           </span>
         </div>
