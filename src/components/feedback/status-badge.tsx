@@ -10,19 +10,28 @@ export default function StatusBadge({ status }: StatusBadgeProps) {
   if (!config) {
     return (
       <span
-        className="inline-flex items-center gap-1.5 text-xs font-medium"
-        style={{ color: "var(--muted-foreground)" }}
+        className="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[11px] font-medium"
+        style={{
+          backgroundColor: "color-mix(in srgb, gray 12%, transparent)",
+          color: "var(--muted-foreground)",
+        }}
       >
-        <span className="h-2 w-2 rounded-full bg-gray-400" />
+        <span className="h-1.5 w-1.5 rounded-full bg-gray-400" />
         {status}
       </span>
     );
   }
 
   return (
-    <span className="inline-flex items-center gap-1.5 text-xs font-medium">
-      <span className={cn("h-2 w-2 rounded-full", config.dotClass)} />
-      <span style={{ color: "var(--muted-foreground)" }}>{config.label}</span>
+    <span
+      className="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[11px] font-medium"
+      style={{
+        backgroundColor: `color-mix(in srgb, ${config.color} 12%, transparent)`,
+        color: config.color,
+      }}
+    >
+      <span className={cn("h-1.5 w-1.5 rounded-full", config.dotClass)} />
+      {config.label}
     </span>
   );
 }

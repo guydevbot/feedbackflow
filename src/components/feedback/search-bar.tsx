@@ -64,7 +64,7 @@ export default function SearchBar() {
         )}
         style={{
           borderColor: "var(--border)",
-          backgroundColor: "var(--muted)",
+          backgroundColor: "var(--card)",
           color: "var(--foreground)",
           ringColor: "var(--primary)",
         } as React.CSSProperties}

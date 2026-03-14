@@ -9,12 +9,12 @@ export default async function Header() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full backdrop-blur-sm",
+        "sticky top-0 z-50 w-full shadow-sm",
         "border-b"
       )}
       style={{
         borderColor: "var(--border)",
-        backgroundColor: "color-mix(in srgb, var(--background) 85%, transparent)",
+        backgroundColor: "var(--card)",
       }}
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
@@ -39,10 +39,15 @@ export default async function Header() {
           <Link
             href="/"
             className={cn(
-              "rounded-md px-3 py-2 text-sm font-medium transition-colors",
+              "rounded-md px-3 py-2 text-sm font-semibold transition-colors",
               "hover:opacity-80"
             )}
-            style={{ color: "var(--foreground)" }}
+            style={{
+              color: "var(--foreground)",
+              borderBottom: "2px solid var(--primary)",
+              borderRadius: "0",
+              paddingBottom: "4px",
+            }}
           >
             Ideas
           </Link>

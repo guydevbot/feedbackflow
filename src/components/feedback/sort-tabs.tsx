@@ -1,12 +1,12 @@
 "use client";
 
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
-import { Flame, ArrowUpDown, Sparkles } from "lucide-react";
+import { Flame, TrendingUp, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const SORT_OPTIONS = [
   { value: "trending", label: "Trending", icon: Flame },
-  { value: "top", label: "Top Voted", icon: ArrowUpDown },
+  { value: "top", label: "Top Voted", icon: TrendingUp },
   { value: "new", label: "New", icon: Sparkles },
 ] as const;
 
@@ -41,14 +41,14 @@ export default function SortTabs() {
             key={value}
             onClick={() => handleSort(value)}
             className={cn(
-              "inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium",
+              "inline-flex items-center gap-1.5 rounded-md px-3 py-1 text-sm font-medium",
               "transition-all active:scale-[0.97]"
             )}
             style={{
-              backgroundColor: isActive ? "var(--background)" : "transparent",
+              backgroundColor: isActive ? "var(--card)" : "transparent",
               color: isActive ? "var(--foreground)" : "var(--muted-foreground)",
               boxShadow: isActive
-                ? "0 1px 3px rgba(0,0,0,0.08)"
+                ? "0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06)"
                 : "none",
             }}
           >

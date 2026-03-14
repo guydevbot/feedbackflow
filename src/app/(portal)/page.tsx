@@ -65,24 +65,49 @@ export default async function IdeasFeed({
   return (
     <div className="min-h-screen bg-[var(--background)]">
       <Header />
-      <main className="max-w-4xl mx-auto px-4 py-6">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold text-[var(--foreground)]">Ideas</h1>
-          <SubmitIdeaButton categories={cats} />
+      <main className="max-w-4xl mx-auto px-4 py-8 sm:px-6">
+        {/* Hero */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl font-bold tracking-tight" style={{ color: "var(--foreground)" }}>
+                Ideas
+              </h1>
+              <p className="mt-1 text-sm" style={{ color: "var(--muted-foreground)" }}>
+                Submit and vote on feature requests
+              </p>
+            </div>
+            <SubmitIdeaButton categories={cats} />
+          </div>
         </div>
 
-        <SearchBar />
-
-        <div className="flex flex-col sm:flex-row gap-4 mb-6">
-          <SortTabs />
-          <CategoryFilter categories={cats} current={category ?? null} currentStatus={status ?? null} />
+        {/* Controls Panel */}
+        <div
+          className="mb-6 rounded-xl border p-4 space-y-4 shadow-sm"
+          style={{ backgroundColor: "var(--card)", borderColor: "var(--border)" }}
+        >
+          <SearchBar />
+          <div className="flex flex-col sm:flex-row sm:items-start gap-4">
+            <SortTabs />
+            <div className="flex-1">
+              <CategoryFilter categories={cats} current={category ?? null} currentStatus={status ?? null} />
+            </div>
+          </div>
         </div>
 
+        {/* Ideas List */}
         <div className="space-y-3">
           {ideas.length === 0 ? (
-            <div className="text-center py-12 text-[var(--muted-foreground)]">
-              <p className="text-lg">No ideas found</p>
-              <p className="text-sm mt-1">Be the first to submit one!</p>
+            <div
+              className="text-center py-16 rounded-xl border-2 border-dashed"
+              style={{ borderColor: "var(--border)" }}
+            >
+              <p className="text-lg font-medium" style={{ color: "var(--muted-foreground)" }}>
+                No ideas found
+              </p>
+              <p className="text-sm mt-1" style={{ color: "var(--muted-foreground)" }}>
+                Try adjusting your filters or be the first to submit one!
+              </p>
             </div>
           ) : (
             ideas.map((idea) => <IdeaCard key={idea.id} idea={idea} />)

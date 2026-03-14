@@ -28,11 +28,6 @@ export default function IdeaCard({ idea }: IdeaCardProps) {
   const [isVoting, setIsVoting] = useState(false);
 
   const statusConfig = STATUS_CONFIG[idea.status as Status] ?? STATUS_CONFIG.under_review;
-  const truncatedDescription = idea.description
-    ? idea.description.length > 120
-      ? idea.description.slice(0, 120) + "..."
-      : idea.description
-    : "";
 
   async function handleVote(e: React.MouseEvent) {
     e.stopPropagation();
@@ -72,7 +67,15 @@ export default function IdeaCard({ idea }: IdeaCardProps) {
       )}
       style={{
         borderColor: "var(--border)",
-        backgroundColor: "var(--background)",
+        backgroundColor: "var(--card)",
+        borderLeftWidth: "3px",
+        borderLeftColor: "transparent",
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.borderLeftColor = statusConfig.color;
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderLeftColor = "transparent";
       }}
     >
       {/* Vote Button */}
@@ -80,13 +83,13 @@ export default function IdeaCard({ idea }: IdeaCardProps) {
         onClick={handleVote}
         disabled={isVoting}
         className={cn(
-          "flex flex-col items-center justify-center gap-1 rounded-xl border px-3 py-3 min-w-[56px]",
+          "flex flex-col items-center justify-center gap-1 rounded-xl border min-w-[60px] px-3 py-4",
           "transition-all hover:scale-105 active:scale-95 shrink-0",
           hasVoted && "ring-2"
         )}
         style={{
           borderColor: hasVoted ? "var(--primary)" : "var(--border)",
-          backgroundColor: hasVoted ? "var(--accent)" : "var(--muted)",
+          backgroundColor: hasVoted ? "var(--accent)" : "var(--card)",
           color: hasVoted ? "var(--primary)" : "var(--muted-foreground)",
           ringColor: hasVoted ? "var(--primary)" : undefined,
         } as React.CSSProperties}
@@ -94,7 +97,7 @@ export default function IdeaCard({ idea }: IdeaCardProps) {
         <ChevronUp
           className={cn("h-5 w-5 transition-transform", hasVoted && "-translate-y-0.5")}
         />
-        <span className="text-sm font-bold leading-none">{votes}</span>
+        <span className="text-sm font-bold leading-none tabular-nums">{votes}</span>
       </button>
 
       {/* Content */}
@@ -108,12 +111,14 @@ export default function IdeaCard({ idea }: IdeaCardProps) {
         </h3>
 
         {/* Description */}
-        <p
-          className="text-sm leading-relaxed"
-          style={{ color: "var(--muted-foreground)" }}
-        >
-          {truncatedDescription}
-        </p>
+        {idea.description && (
+          <p
+            className="text-sm leading-relaxed line-clamp-2"
+            style={{ color: "var(--muted-foreground)" }}
+          >
+            {idea.description}
+          </p>
+        )}
 
         {/* Meta row */}
         <div className="flex flex-wrap items-center gap-3 mt-1">
@@ -128,12 +133,16 @@ export default function IdeaCard({ idea }: IdeaCardProps) {
             {idea.category}
           </span>
 
-          {/* Status */}
-          <span className="inline-flex items-center gap-1.5 text-xs font-medium">
-            <span className={cn("h-2 w-2 rounded-full", statusConfig.dotClass)} />
-            <span style={{ color: "var(--muted-foreground)" }}>
-              {statusConfig.label}
-            </span>
+          {/* Status pill badge */}
+          <span
+            className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[11px] font-medium"
+            style={{
+              backgroundColor: `color-mix(in srgb, ${statusConfig.color} 15%, white)`,
+              color: statusConfig.color,
+            }}
+          >
+            <span className={cn("h-1.5 w-1.5 rounded-full", statusConfig.dotClass)} />
+            {statusConfig.label}
           </span>
 
           {/* Time */}

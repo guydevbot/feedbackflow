@@ -40,16 +40,16 @@ export default function CategoryFilter({
       {/* Category filter */}
       <div>
         <h4
-          className="mb-2 text-xs font-semibold uppercase tracking-wider"
+          className="mb-2 text-[11px] font-semibold uppercase tracking-widest"
           style={{ color: "var(--muted-foreground)" }}
         >
           Category
         </h4>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-1.5">
           <button
             onClick={() => setParam("category", null)}
             className={cn(
-              "rounded-full border px-3 py-1 text-xs font-medium transition-all",
+              "rounded-full border px-2.5 py-0.5 text-[11px] font-medium transition-all",
               "hover:opacity-80 active:scale-[0.97]"
             )}
             style={{
@@ -67,15 +67,18 @@ export default function CategoryFilter({
                 key={cat.id}
                 onClick={() => setParam("category", isActive ? null : cat.slug)}
                 className={cn(
-                  "rounded-full border px-3 py-1 text-xs font-medium transition-all",
+                  "rounded-full border px-2.5 py-0.5 text-[11px] font-medium transition-all",
                   "hover:opacity-80 active:scale-[0.97]"
                 )}
                 style={{
                   borderColor: isActive ? cat.color : "var(--border)",
                   backgroundColor: isActive
-                    ? `color-mix(in srgb, ${cat.color} 15%, transparent)`
+                    ? `color-mix(in srgb, ${cat.color} 10%, transparent)`
                     : "transparent",
                   color: isActive ? cat.color : "var(--muted-foreground)",
+                  boxShadow: isActive
+                    ? `0 0 0 1px ${cat.color}`
+                    : "none",
                 }}
               >
                 {cat.name}
@@ -85,19 +88,22 @@ export default function CategoryFilter({
         </div>
       </div>
 
+      {/* Divider */}
+      <hr style={{ borderColor: "var(--border)" }} />
+
       {/* Status filter */}
       <div>
         <h4
-          className="mb-2 text-xs font-semibold uppercase tracking-wider"
+          className="mb-2 text-[11px] font-semibold uppercase tracking-widest"
           style={{ color: "var(--muted-foreground)" }}
         >
           Status
         </h4>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-1.5">
           <button
             onClick={() => setParam("status", null)}
             className={cn(
-              "rounded-full border px-3 py-1 text-xs font-medium transition-all",
+              "rounded-full border px-2.5 py-0.5 text-[11px] font-medium transition-all",
               "hover:opacity-80 active:scale-[0.97]"
             )}
             style={{
@@ -116,18 +122,21 @@ export default function CategoryFilter({
                   key={key}
                   onClick={() => setParam("status", isActive ? null : key)}
                   className={cn(
-                    "inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium",
+                    "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[11px] font-medium",
                     "transition-all hover:opacity-80 active:scale-[0.97]"
                   )}
                   style={{
                     borderColor: isActive ? config.color : "var(--border)",
                     backgroundColor: isActive
-                      ? `color-mix(in srgb, ${config.color} 15%, transparent)`
+                      ? `color-mix(in srgb, ${config.color} 10%, transparent)`
                       : "transparent",
                     color: isActive ? config.color : "var(--muted-foreground)",
+                    boxShadow: isActive
+                      ? `0 0 0 1px ${config.color}`
+                      : "none",
                   }}
                 >
-                  <span className={cn("h-2 w-2 rounded-full", config.dotClass)} />
+                  <span className={cn("h-1.5 w-1.5 rounded-full", config.dotClass)} />
                   {config.label}
                 </button>
               );

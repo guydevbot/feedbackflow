@@ -47,17 +47,34 @@ export default async function RoadmapPage() {
           See what we are working on and what is coming next.
         </p>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {COLUMNS.map((col) => {
             const config = STATUS_CONFIG[col.key];
-            const items = grouped[col.key] ?? [];
+            const items = [...(grouped[col.key] ?? [])].sort((a, b) => b.voteCount - a.voteCount);
+            const isShipped = col.key === "shipped";
+
+            const statusColorMap: Record<string, string> = {
+              in_progress: "var(--idea-building)",
+              planned: "var(--idea-planned)",
+              under_review: "var(--idea-reviewing)",
+              shipped: "var(--idea-shipped)",
+            };
+            const statusColor = statusColorMap[col.key] ?? "var(--muted-foreground)";
 
             return (
-              <div key={col.key} className="flex flex-col">
+              <div
+                key={col.key}
+                className="flex flex-col rounded-xl border overflow-hidden shadow-sm"
+                style={{
+                  borderColor: "var(--border)",
+                  backgroundColor: "var(--card)",
+                  opacity: isShipped ? 0.8 : 1,
+                }}
+              >
                 {/* Column header */}
                 <div
-                  className="mb-4 flex items-center gap-2 rounded-lg px-4 py-3"
-                  style={{ backgroundColor: "var(--muted)" }}
+                  className="flex items-center gap-2 px-4 py-3 border-b"
+                  style={{ borderColor: "var(--border)" }}
                 >
                   <span
                     className={`h-2.5 w-2.5 rounded-full ${config.dotClass}`}
@@ -71,8 +88,8 @@ export default async function RoadmapPage() {
                   <span
                     className="ml-auto rounded-full px-2 py-0.5 text-xs font-medium"
                     style={{
-                      backgroundColor: "var(--border)",
-                      color: "var(--muted-foreground)",
+                      backgroundColor: `color-mix(in srgb, ${statusColor} 15%, transparent)`,
+                      color: statusColor,
                     }}
                   >
                     {items.length}
@@ -80,7 +97,7 @@ export default async function RoadmapPage() {
                 </div>
 
                 {/* Cards */}
-                <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-2 p-3 min-h-[200px]">
                   {items.length === 0 ? (
                     <p
                       className="px-4 py-6 text-center text-sm"
@@ -93,10 +110,10 @@ export default async function RoadmapPage() {
                       <Link
                         key={item.id}
                         href={`/feedback/${item.id}`}
-                        className="group rounded-lg border p-4 transition-all hover:shadow-md"
+                        className="group rounded-lg border p-3 transition-all hover:shadow-sm hover:-translate-y-0.5"
                         style={{
                           borderColor: "var(--border)",
-                          backgroundColor: "var(--background)",
+                          backgroundColor: "var(--muted)",
                         }}
                       >
                         <h3
