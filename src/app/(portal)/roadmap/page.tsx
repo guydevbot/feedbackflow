@@ -35,13 +35,13 @@ export default async function RoadmapPage() {
       <Header />
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
         <h1
-          className="mb-2 text-2xl font-bold"
+          className="mb-2 text-3xl font-extrabold tracking-tight"
           style={{ color: "var(--foreground)" }}
         >
           Product Roadmap
         </h1>
         <p
-          className="mb-8 text-sm"
+          className="mb-8 text-sm font-medium"
           style={{ color: "var(--muted-foreground)" }}
         >
           See what we are working on and what is coming next.
@@ -64,11 +64,13 @@ export default async function RoadmapPage() {
             return (
               <div
                 key={col.key}
-                className="flex flex-col rounded-xl border overflow-hidden shadow-sm"
+                className="flex flex-col rounded-xl border overflow-hidden shadow"
                 style={{
                   borderColor: "var(--border)",
-                  backgroundColor: "var(--card)",
-                  opacity: isShipped ? 0.8 : 1,
+                  backgroundColor: "var(--background)",
+                  opacity: isShipped ? 0.9 : 1,
+                  borderTopWidth: "4px",
+                  borderTopColor: statusColor,
                 }}
               >
                 {/* Column header */}
@@ -80,13 +82,13 @@ export default async function RoadmapPage() {
                     className={`h-2.5 w-2.5 rounded-full ${config.dotClass}`}
                   />
                   <span
-                    className="text-sm font-semibold"
+                    className="text-xs font-bold uppercase tracking-wider"
                     style={{ color: "var(--foreground)" }}
                   >
                     {col.heading}
                   </span>
                   <span
-                    className="ml-auto rounded-full px-2 py-0.5 text-xs font-medium"
+                    className="ml-auto rounded-full px-2 py-0.5 text-xs font-bold"
                     style={{
                       backgroundColor: `color-mix(in srgb, ${statusColor} 15%, transparent)`,
                       color: statusColor,
@@ -110,10 +112,10 @@ export default async function RoadmapPage() {
                       <Link
                         key={item.id}
                         href={`/feedback/${item.id}`}
-                        className="group rounded-lg border p-3 transition-all hover:shadow-sm hover:-translate-y-0.5"
+                        className="group rounded-lg border p-3 transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5"
                         style={{
                           borderColor: "var(--border)",
-                          backgroundColor: "var(--muted)",
+                          backgroundColor: "var(--card)",
                         }}
                       >
                         <h3
@@ -124,12 +126,16 @@ export default async function RoadmapPage() {
                         </h3>
                         <div className="flex items-center justify-between">
                           <span
-                            className="rounded-full px-2 py-0.5 text-xs font-medium"
+                            className="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium"
                             style={{
                               backgroundColor: "var(--accent)",
                               color: "var(--primary)",
                             }}
                           >
+                            <span
+                              className="h-1.5 w-1.5 rounded-full shrink-0"
+                              style={{ backgroundColor: "var(--primary)" }}
+                            />
                             {item.category}
                           </span>
                           <span

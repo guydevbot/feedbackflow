@@ -46,10 +46,11 @@ export default function SortTabs() {
             )}
             style={{
               backgroundColor: isActive ? "var(--card)" : "transparent",
-              color: isActive ? "var(--foreground)" : "var(--muted-foreground)",
+              color: isActive ? "var(--primary)" : "var(--muted-foreground)",
               boxShadow: isActive
                 ? "0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06)"
                 : "none",
+              borderBottom: isActive ? "2px solid var(--primary)" : "2px solid transparent",
             }}
           >
             <Icon className="h-3.5 w-3.5" />

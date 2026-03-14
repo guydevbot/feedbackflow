@@ -144,8 +144,8 @@ export default function SubmitIdeaButton({ categories }: SubmitIdeaButtonProps) 
       <button
         onClick={openModal}
         className={cn(
-          "inline-flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium",
-          "transition-all hover:opacity-90 active:scale-[0.97] shadow-sm"
+          "inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold",
+          "transition-all hover:opacity-90 active:scale-[0.97] shadow-md hover:shadow-lg"
         )}
         style={{
           backgroundColor: "var(--primary)",
@@ -176,7 +176,7 @@ export default function SubmitIdeaButton({ categories }: SubmitIdeaButtonProps) 
             )}
             style={{
               borderColor: "var(--border)",
-              backgroundColor: "var(--background)",
+              backgroundColor: "var(--card)",
             }}
           >
             {/* Header */}
@@ -355,7 +355,7 @@ export default function SubmitIdeaButton({ categories }: SubmitIdeaButtonProps) 
                   type="submit"
                   disabled={isSubmitting}
                   className={cn(
-                    "inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium",
+                    "inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold shadow-md",
                     "transition-all hover:opacity-90 active:scale-[0.97]",
                     "disabled:opacity-50 disabled:pointer-events-none"
                   )}

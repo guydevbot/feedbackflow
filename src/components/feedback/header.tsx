@@ -9,26 +9,25 @@ export default async function Header() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full shadow-sm",
-        "border-b"
+        "sticky top-0 z-50 w-full shadow-lg"
       )}
       style={{
-        borderColor: "var(--border)",
-        backgroundColor: "var(--card)",
+        backgroundColor: "var(--header-bg)",
+        color: "var(--header-text)",
       }}
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
+        <Link href="/" className="flex items-center gap-2.5 group">
           <div
-            className="flex h-8 w-8 items-center justify-center rounded-lg transition-transform group-hover:scale-105"
+            className="flex h-9 w-9 items-center justify-center rounded-lg transition-transform group-hover:scale-105 shadow-md"
             style={{ backgroundColor: "var(--primary)" }}
           >
-            <MessageSquareText className="h-4 w-4" style={{ color: "var(--primary-foreground)" }} />
+            <MessageSquareText className="h-5 w-5 text-white" />
           </div>
           <span
-            className="text-lg font-bold tracking-tight"
-            style={{ color: "var(--foreground)" }}
+            className="text-xl font-bold tracking-tight"
+            style={{ color: "var(--header-text)" }}
           >
             FeedbackFlow
           </span>
@@ -40,10 +39,10 @@ export default async function Header() {
             href="/"
             className={cn(
               "rounded-md px-3 py-2 text-sm font-semibold transition-colors",
-              "hover:opacity-80"
+              "hover:opacity-90"
             )}
             style={{
-              color: "var(--foreground)",
+              color: "#ffffff",
               borderBottom: "2px solid var(--primary)",
               borderRadius: "0",
               paddingBottom: "4px",
@@ -55,9 +54,9 @@ export default async function Header() {
             href="/roadmap"
             className={cn(
               "rounded-md px-3 py-2 text-sm font-medium transition-colors",
-              "hover:opacity-80"
+              "hover:opacity-90"
             )}
-            style={{ color: "var(--muted-foreground)" }}
+            style={{ color: "rgba(255,255,255,0.65)" }}
           >
             Roadmap
           </Link>
@@ -72,14 +71,14 @@ export default async function Header() {
                   src={session.user.image}
                   alt={session.user.name ?? "User"}
                   className="h-8 w-8 rounded-full ring-2 transition-shadow hover:ring-4"
-                  style={{ ringColor: "var(--border)" } as React.CSSProperties}
+                  style={{ ringColor: "rgba(255,255,255,0.3)" } as React.CSSProperties}
                 />
               ) : (
                 <div
                   className="flex h-8 w-8 items-center justify-center rounded-full text-sm font-medium"
                   style={{
                     backgroundColor: "var(--primary)",
-                    color: "var(--primary-foreground)",
+                    color: "#ffffff",
                   }}
                 >
                   {(session.user.name ?? session.user.email ?? "U").charAt(0).toUpperCase()}
@@ -91,11 +90,12 @@ export default async function Header() {
               href="/api/auth/signin"
               className={cn(
                 "inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium",
-                "transition-all hover:opacity-90 active:scale-[0.98]"
+                "transition-all hover:bg-white/10 active:scale-[0.98] border"
               )}
               style={{
-                backgroundColor: "var(--primary)",
-                color: "var(--primary-foreground)",
+                borderColor: "rgba(255,255,255,0.3)",
+                color: "#ffffff",
+                backgroundColor: "transparent",
               }}
             >
               <LogIn className="h-4 w-4" />

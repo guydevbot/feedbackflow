@@ -70,10 +70,21 @@ export default async function IdeasFeed({
         <div className="mb-8">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold tracking-tight" style={{ color: "var(--foreground)" }}>
-                Ideas
-              </h1>
-              <p className="mt-1 text-sm" style={{ color: "var(--muted-foreground)" }}>
+              <div className="flex items-center gap-3">
+                <h1 className="text-3xl font-extrabold tracking-tight" style={{ color: "var(--foreground)" }}>
+                  Ideas
+                </h1>
+                <span
+                  className="inline-flex items-center justify-center rounded-full px-2.5 py-0.5 text-xs font-bold"
+                  style={{
+                    backgroundColor: "var(--primary)",
+                    color: "var(--primary-foreground)",
+                  }}
+                >
+                  {ideas.length}
+                </span>
+              </div>
+              <p className="mt-1.5 text-sm font-medium" style={{ color: "var(--muted-foreground)" }}>
                 Submit and vote on feature requests
               </p>
             </div>
@@ -83,7 +94,7 @@ export default async function IdeasFeed({
 
         {/* Controls Panel */}
         <div
-          className="mb-6 rounded-xl border p-4 space-y-4 shadow-sm"
+          className="mb-6 rounded-xl border p-4 space-y-4 shadow"
           style={{ backgroundColor: "var(--card)", borderColor: "var(--border)" }}
         >
           <SearchBar />

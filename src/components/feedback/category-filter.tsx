@@ -54,8 +54,8 @@ export default function CategoryFilter({
             )}
             style={{
               borderColor: !current ? "var(--primary)" : "var(--border)",
-              backgroundColor: !current ? "var(--accent)" : "transparent",
-              color: !current ? "var(--primary)" : "var(--muted-foreground)",
+              backgroundColor: !current ? "var(--primary)" : "transparent",
+              color: !current ? "var(--primary-foreground)" : "var(--muted-foreground)",
             }}
           >
             All
@@ -67,20 +67,21 @@ export default function CategoryFilter({
                 key={cat.id}
                 onClick={() => setParam("category", isActive ? null : cat.slug)}
                 className={cn(
-                  "rounded-full border px-2.5 py-0.5 text-[11px] font-medium transition-all",
+                  "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[11px] font-medium transition-all",
                   "hover:opacity-80 active:scale-[0.97]"
                 )}
                 style={{
                   borderColor: isActive ? cat.color : "var(--border)",
-                  backgroundColor: isActive
-                    ? `color-mix(in srgb, ${cat.color} 10%, transparent)`
-                    : "transparent",
-                  color: isActive ? cat.color : "var(--muted-foreground)",
-                  boxShadow: isActive
-                    ? `0 0 0 1px ${cat.color}`
-                    : "none",
+                  backgroundColor: isActive ? cat.color : "transparent",
+                  color: isActive ? "#ffffff" : "var(--muted-foreground)",
                 }}
               >
+                <span
+                  className="h-1.5 w-1.5 rounded-full shrink-0"
+                  style={{
+                    backgroundColor: isActive ? "#ffffff" : cat.color,
+                  }}
+                />
                 {cat.name}
               </button>
             );
@@ -108,8 +109,8 @@ export default function CategoryFilter({
             )}
             style={{
               borderColor: !currentStatus ? "var(--primary)" : "var(--border)",
-              backgroundColor: !currentStatus ? "var(--accent)" : "transparent",
-              color: !currentStatus ? "var(--primary)" : "var(--muted-foreground)",
+              backgroundColor: !currentStatus ? "var(--primary)" : "transparent",
+              color: !currentStatus ? "var(--primary-foreground)" : "var(--muted-foreground)",
             }}
           >
             All
@@ -127,16 +128,16 @@ export default function CategoryFilter({
                   )}
                   style={{
                     borderColor: isActive ? config.color : "var(--border)",
-                    backgroundColor: isActive
-                      ? `color-mix(in srgb, ${config.color} 10%, transparent)`
-                      : "transparent",
-                    color: isActive ? config.color : "var(--muted-foreground)",
-                    boxShadow: isActive
-                      ? `0 0 0 1px ${config.color}`
-                      : "none",
+                    backgroundColor: isActive ? config.color : "transparent",
+                    color: isActive ? "#ffffff" : "var(--muted-foreground)",
                   }}
                 >
-                  <span className={cn("h-1.5 w-1.5 rounded-full", config.dotClass)} />
+                  <span
+                    className={cn("h-1.5 w-1.5 rounded-full")}
+                    style={{
+                      backgroundColor: isActive ? "#ffffff" : config.color,
+                    }}
+                  />
                   {config.label}
                 </button>
               );

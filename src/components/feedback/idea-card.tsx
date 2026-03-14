@@ -62,20 +62,14 @@ export default function IdeaCard({ idea }: IdeaCardProps) {
     <div
       onClick={() => router.push(`/feedback/${idea.id}`)}
       className={cn(
-        "group flex cursor-pointer gap-4 rounded-xl border p-4 transition-all",
-        "hover:shadow-md hover:-translate-y-0.5"
+        "group flex cursor-pointer gap-4 rounded-xl border p-4 transition-all shadow",
+        "hover:shadow-lg hover:-translate-y-0.5"
       )}
       style={{
         borderColor: "var(--border)",
         backgroundColor: "var(--card)",
         borderLeftWidth: "3px",
-        borderLeftColor: "transparent",
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.borderLeftColor = statusConfig.color;
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.borderLeftColor = "transparent";
+        borderLeftColor: `color-mix(in srgb, ${statusConfig.color} 50%, transparent)`,
       }}
     >
       {/* Vote Button */}
@@ -83,7 +77,7 @@ export default function IdeaCard({ idea }: IdeaCardProps) {
         onClick={handleVote}
         disabled={isVoting}
         className={cn(
-          "flex flex-col items-center justify-center gap-1 rounded-xl border min-w-[60px] px-3 py-4",
+          "flex flex-col items-center justify-center gap-1 rounded-xl border-2 min-w-[60px] px-3 py-4",
           "transition-all hover:scale-105 active:scale-95 shrink-0",
           hasVoted && "ring-2"
         )}
@@ -104,7 +98,7 @@ export default function IdeaCard({ idea }: IdeaCardProps) {
       <div className="flex min-w-0 flex-1 flex-col gap-2">
         {/* Title */}
         <h3
-          className="text-base font-semibold leading-snug group-hover:underline"
+          className="text-[15px] font-semibold leading-tight group-hover:underline"
           style={{ color: "var(--foreground)" }}
         >
           {idea.title}
@@ -122,14 +116,18 @@ export default function IdeaCard({ idea }: IdeaCardProps) {
 
         {/* Meta row */}
         <div className="flex flex-wrap items-center gap-3 mt-1">
-          {/* Category badge */}
+          {/* Category badge with colored dot */}
           <span
-            className="inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium"
+            className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium"
             style={{
               backgroundColor: "var(--accent)",
               color: "var(--primary)",
             }}
           >
+            <span
+              className="h-2 w-2 rounded-full shrink-0"
+              style={{ backgroundColor: "var(--primary)" }}
+            />
             {idea.category}
           </span>
 
